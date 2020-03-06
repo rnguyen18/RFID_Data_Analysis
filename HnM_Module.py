@@ -1,4 +1,4 @@
-from RFID_Lab import RFID_Dataframe
+from RFID_Lab import RFID_Dataframe, RFID_Analysis
 import pandas as pd
 import enum
 import xlrd
@@ -49,3 +49,10 @@ class HnM_Dataframe(RFID_Dataframe):
 
     def filterData(self):
         pass
+
+
+class HnM_Analysis(RFID_Analysis):
+
+    def __init__(self, title, primary_csv, secondary_csv, column=0):
+        super().__init__(self, title, primary_csv, secondary_csv, column)
+

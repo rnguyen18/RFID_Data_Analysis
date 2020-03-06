@@ -1,10 +1,10 @@
 import HnM_Module
 
 
-def parseGroup(title, path, type, amount):
+def parseGroup(title, path, typ, amount):
     group = []
     for i in range(1, amount+1):
-        group.append(CSV.HNM_CSV_File(title.format(i), path.format(i), type))
+        group.append(HnM_Module.HnM_Dataframe(title.format(i), path.format(i), typ))
     return group
 
 
