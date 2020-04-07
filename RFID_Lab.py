@@ -1,4 +1,12 @@
 import abc
+import pandas as pd
+
+def prefixFilter(word, prefixes_array):
+    for i, prefix_array in prefixes_array:
+        if not (word[i] in prefix_array):
+            return False
+
+    return True
 
 
 class RFID_Dataframe:
@@ -29,6 +37,16 @@ class RFID_Dataframe:
     def writeCSV(self, path=""):
         Path = path if path != "" else "../files/HnM/write/{0}.csv".format(self.title)
         self.data_frame.to_csv(Path)
+
+    def filterWithPrefix(self, column, char_array):
+        self.data_frame = self.data_frame[self.data_frame.apply(
+            lambda x: prefixFilter(x[column]), axis=1
+        )]
+
+    def filterToInts(self, column):
+        self.data_frame[column] = pd.to_numeric(self.data_frame[column], errors="coerce")
+        self.data_frame.dropna(subset=[column], inplace=True)
+        self.data_frame = self.data_frame.astype({column: "int64"})
 
     @abc.abstractmethod
     def parse(self):
