@@ -4,6 +4,7 @@ import enum
 import xlrd
 import openpyxl
 
+
 class File_Type(enum.Enum):
     DELTA = 0
     ATT = 1
@@ -52,10 +53,10 @@ class Delta_Analysis(RFID_Analysis):
 
     def exportStatistics(self, path):
         stats = self.calcStatistics()
-        indexes = ["Total", "Accurate", "Underread"]
-        df1 = pd.DataFrame({"Count": [stats[0], stats[2], stats[4]],
+        indexes = ["Total Primary", "Total Secondary", "Accurate", "Underread", "Overread"]
+        df1 = pd.DataFrame({"Count": [stats[0], stats[1], stats[2], stats[4], stats[6]],
                             "Percentage":
-                                [None, stats[3], stats[5]]},
+                                [None, None, stats[3], stats[5], stats[7]]},
                            indexes)
 
         df2 = self.primary_dataframe.parse()
